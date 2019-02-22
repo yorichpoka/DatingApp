@@ -1,6 +1,7 @@
 using System;
+using Microsoft.AspNetCore.Http;
 
-namespace DatingApp.API.Models.Static
+namespace DatingApp.API.Models.Helpers
 {
     internal static class Tools
     {
@@ -29,7 +30,6 @@ namespace DatingApp.API.Models.Static
             return true;
         }
 
-        
         internal static void ToLower(ref string value)
         {
             value = value.ToLower();

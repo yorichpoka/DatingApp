@@ -1,6 +1,6 @@
 using DatingApp.API.Models.Data;
 using DatingApp.API.Models.Entity;
-using DatingApp.API.Models.Static;
+using DatingApp.API.Models.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
