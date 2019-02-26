@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using DatingApp.API.Models.Entity;
 using DatingApp.API.Models.Helpers;
+using DatingApp.API.Models.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Models.Data

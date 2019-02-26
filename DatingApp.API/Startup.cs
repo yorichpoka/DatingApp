@@ -19,6 +19,8 @@ using System.Text;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Diagnostics;
+using DatingApp.API.Models.Interface;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -43,11 +45,21 @@ namespace DatingApp.API
                     );
                 });
             services
-                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(l => {
+                    l.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             services
                 .AddCors();
             services
+                .AddAutoMapper();
+            services
+                .AddTransient<Seed>();
+            services
                 .AddScoped<IAuthRepository, AuthRepository>();
+            services
+                .AddScoped<IDatingRepository, DatingRepository>();
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(l => {
@@ -65,7 +77,7 @@ namespace DatingApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +100,7 @@ namespace DatingApp.API
             }
 
             // app.UseHttpsRedirection();
+            // seeder.SeedUsers();
             app.UseCors(l => {
                 l.AllowAnyOrigin();
                 l.AllowAnyMethod();
